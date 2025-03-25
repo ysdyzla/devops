@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: devops
+  name: devops
+  namespace: default
+spec:
+  minReadySeconds: 60
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: devops
+  template:
+    metadata:
+      labels:
+        app: devops
+    spec:
+      containers:
+        - name: devops
+          image: harbor.ysdy-zla.top:444/library/alpine-ipmi@sha256:400507f78cb25a066445851d2230608bbbbed66e07a6e8435b8955ecd5d851f8
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: tcp-8080
+              protocol: TCP
